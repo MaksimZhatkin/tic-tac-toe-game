@@ -1,0 +1,178 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+:root {
+    --cell-size: 100px;
+    --mark-size: calc(var(--cell-size) * .9);
+}
+
+
+/*Board style*/
+
+.board {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(3, auto);
+}
+
+
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after{
+    background-color: #ff4e4d;
+}
+
+
+/* Cell style*/
+
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border: 1px solid #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+    border-top: none;
+}
+
+.cell:nth-child(3n + 1) {
+    border-left: none;
+}
+
+.cell:nth-child(3n + 3) {
+    border-right: none;
+}
+
+.cell:last-child,
+.cell:nth-child(7),
+.cell:nth-child(8) {
+    border-bottom: none;
+}
+
+.cell.o,
+.cell.x {
+    cursor: not-allowed;
+}
+
+/* X style*/
+
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after {
+    background-color: #FF585E;
+}
+
+.cell.x::before,
+.cell.x::after {
+    background-color: #ff0000;
+}
+
+.cell.x::before,
+.cell.x::after,
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after {
+    content: '';
+    width: calc(var(--mark-size) * .15);
+    height: var(--mark-size);
+    position: absolute;
+}
+
+.cell.x::before,
+.board.x .cell:not(.x):not(.o):hover::before {
+    transform: rotate(45deg);
+}
+
+.cell.x::after,
+.board.x .cell:not(.x):not(.o):hover::after {
+    transform: rotate(-45deg);
+}
+
+
+/* Circle style*/
+
+.board.o .cell:not(.x):not(.o):hover::before {
+    background-color: #5395ff;
+}
+
+.cell.o::before {
+    background-color: #2756ee;
+}
+
+.cell.o::before,
+.cell.o::after,
+.board.o .cell:not(.x):not(.o):hover::before,
+.board.o .cell:not(.x):not(.o):hover::after{
+    content: '';
+    border-radius: 50%;
+    position: absolute;
+}
+
+.cell.o::before,
+.board.o .cell:not(.x):not(.o):hover::before {
+    width: calc(var(--mark-size) * .9);
+    height: calc(var(--mark-size) * .9);
+}
+
+
+.cell.o::after,
+.board.o .cell:not(.x):not(.o):hover::after {
+    background-color: #ffffff;
+    width: calc(var(--mark-size) * .6);
+    height: calc(var(--mark-size) * .6);
+}
+
+
+/* Overlay and restart-btn*/
+
+.overlay {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.65);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.overlay--show{
+    display: flex;
+}
+
+.message {
+    color: #ffffff;
+    font-size: 70px;
+}
+
+.restart-btn {
+    border: solid 1px ;
+    padding: 15px 30px;
+    font-size: 30px;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.restart-btn:hover {
+    border: solid 1px white;
+    background-color: #000000;
+    color: #ffffff;
+}
